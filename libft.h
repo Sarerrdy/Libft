@@ -19,5 +19,6 @@ int ft_tolower(int c);
 int ft_atoi(const char *nptr);
 int ft_atoi(const char *nptr);
 int ft_strlcpy(char *dst, const char *src, int size);
+int ft_strlcat(char *dst, const char *src, unsigned int size);
 
 #endif

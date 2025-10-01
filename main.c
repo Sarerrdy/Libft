@@ -227,80 +227,160 @@ int	main(void)
 // printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
 
 
+
+
 // ---------------- strlcpy ----------------
 
-int ft_strlcpy(char *dst, const char *src, int size);
+// printf("\n=== Testing strlcpy ===\n");
 
-printf("\n=== Testing strlcpy ===\n");
+// char dst[10];
+// char original_dst[10];
+// const char *src;
+// size_t size, result, original_result;
 
-char dst[10];
-char original_dst[10];
+// // Empty string
+// src = "";
+// size = 10;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Exact fit
+// src = "abcd";
+// size = 5;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Truncation
+// src = "hello world";
+// size = 5;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Size is zero
+// src = "nonempty";
+// size = 0;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Size is 1
+// src = "test";
+// size = 1;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Large src, small buffer
+// src = "abcdefghijklmnopqrstuvwxyz";
+// size = 4;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, dst, result, original_dst, original_result);
+
+// // Embedded nulls
+// src = "abc\0def";
+// size = 10;
+// result = ft_strlcpy(dst, src, size);
+// original_result = strlcpy(original_dst, src, size);
+// printf("src=\"abc\\0def\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        size, dst, result, original_dst, original_result);
+
+// // Size larger than dst buffer
+// char small_dst[5];
+// char small_original_dst[5];
+// src = "oversize";
+// size = 100;  // larger than buffer
+// result = ft_strlcpy(small_dst, src, size);
+// original_result = strlcpy(small_original_dst, src, size);
+// printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+//        src, size, small_dst, result, small_original_dst, original_result);
+
+
+// ---------------- strlcat ----------------
+
+printf("\n=== Testing strlcat ===\n");
+
+char dst[20];
+char original_dst[20];
 const char *src;
 size_t size, result, original_result;
 
-// Empty string
+// Empty src
+strcpy(dst, "abc");
+strcpy(original_dst, "abc");
 src = "";
-size = 10;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
+size = 20;
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
+
+// Empty dst
+strcpy(dst, "");
+strcpy(original_dst, "");
+src = "hello";
+size = 20;
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, dst, result, original_dst, original_result);
 
 // Exact fit
-src = "abcd";
-size = 5;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
+strcpy(dst, "abc");
+strcpy(original_dst, "abc");
+src = "def";
+size = 7; // "abc" + "def" + '\0'
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, dst, result, original_dst, original_result);
 
 // Truncation
-src = "hello world";
-size = 5;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
+strcpy(dst, "abc");
+strcpy(original_dst, "abc");
+src = "defghijklmnop";
+size = 10;
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, dst, result, original_dst, original_result);
 
 // Size is zero
-src = "nonempty";
+strcpy(dst, "abc");
+strcpy(original_dst, "abc");
+src = "xyz";
 size = 0;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, dst, result, original_dst, original_result);
 
-// Size is 1
-src = "test";
-size = 1;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
+// Size smaller than dst length
+strcpy(dst, "abcdefghij");
+strcpy(original_dst, "abcdefghij");
+src = "XYZ";
+size = 5;
+result = ft_strlcat(dst, src, size);
+original_result = strlcat(original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, dst, result, original_dst, original_result);
 
-// Large src, small buffer
-src = "abcdefghijklmnopqrstuvwxyz";
-size = 4;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
-printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
-       src, size, dst, result, original_dst, original_result);
-
-// Embedded nulls
-src = "abc\0def";
-size = 10;
-result = ft_strlcpy(dst, src, size);
-original_result = strlcpy(original_dst, src, size);
-printf("src=\"abc\\0def\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
-       size, dst, result, original_dst, original_result);
-
-// Size larger than dst buffer
-char small_dst[5];
-char small_original_dst[5];
+// Size larger than actual buffer
+char small_dst[5] = "abc";
+char small_original_dst[5] = "abc";
 src = "oversize";
-size = 100;  // larger than buffer
-result = ft_strlcpy(small_dst, src, size);
-original_result = strlcpy(small_original_dst, src, size);
+size = 100;
+result = ft_strlcat(small_dst, src, size);
+original_result = strlcat(small_original_dst, src, size);
 printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
        src, size, small_dst, result, small_original_dst, original_result);
 
