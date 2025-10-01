@@ -1,7 +1,8 @@
-#include "libft.h"
 #include <ctype.h>
 #include <stdio.h>
-#include <string.h> 
+#include "libft.h"
+
+#include <bsd/string.h>
 
 int	main(void)
 {
@@ -191,67 +192,117 @@ int	main(void)
 
 
 // ---------------- atoi ----------------
-printf("\n=== Testing atoi ===\n");
+// printf("\n=== Testing atoi ===\n");
 
-const char *s;
+// const char *s;
+// s = "";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "   ";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "7";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "123";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "-456";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "   789";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "+42";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "--42";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "+-42";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "abc123";strlcpy
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "123abc";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "2147483647";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "-2147483648";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "9999999999";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+// s = "-9999999999";
+// printf("ft_atoi=\"%s\" : %d, atoi : %d\n", s, ft_atoi(s), atoi(s));
+
+
+// ---------------- strlcpy ----------------
+
+int ft_strlcpy(char *dst, const char *src, int size);
+
+printf("\n=== Testing strlcpy ===\n");
+
+char dst[10];
+char original_dst[10];
+const char *src;
+size_t size, result, original_result;
 
 // Empty string
-s = "";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+src = "";
+size = 10;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Only spaces
-s = "   ";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Exact fit
+src = "abcd";
+size = 5;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Single digit
-s = "7";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Truncation
+src = "hello world";
+size = 5;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Positive number
-s = "123";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Size is zero
+src = "nonempty";
+size = 0;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Negative number
-s = "-456";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Size is 1
+src = "test";
+size = 1;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Leading spaces
-s = "   789";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Large src, small buffer
+src = "abcdefghijklmnopqrstuvwxyz";
+size = 4;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, dst, result, original_dst, original_result);
 
-// Leading plus
-s = "+42";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Embedded nulls
+src = "abc\0def";
+size = 10;
+result = ft_strlcpy(dst, src, size);
+original_result = strlcpy(original_dst, src, size);
+printf("src=\"abc\\0def\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       size, dst, result, original_dst, original_result);
 
-// Mixed signs
-s = "--42";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-s = "+-42";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-// Non-digit prefix
-s = "abc123";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-// Number followed by letters
-s = "123abc";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-// INT_MAX
-s = "2147483647";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-// INT_MIN
-s = "-2147483648";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-// Overflow
-s = "9999999999";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
-
-s = "-9999999999";
-printf("ft_atoi=\"%s\" → %d, atoi → %d\n", s, ft_atoi(s), atoi(s));
+// Size larger than dst buffer
+char small_dst[5];
+char small_original_dst[5];
+src = "oversize";
+size = 100;  // larger than buffer
+result = ft_strlcpy(small_dst, src, size);
+original_result = strlcpy(small_original_dst, src, size);
+printf("src=\"%s\", size=%zu => ft_dst=\"%s\", ft_return=%zu | std_dst=\"%s\", std_return=%zu\n\n",
+       src, size, small_dst, result, small_original_dst, original_result);
 
 	return (0);
 }
