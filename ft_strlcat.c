@@ -1,26 +1,24 @@
 int ft_strlcat(char *dst, const char *src, unsigned int size)
 {
     unsigned int i;
-    unsigned int j;
+    unsigned int src_len;
+    unsigned int dst_len;
 
-    i = 0;
-    j = 0;
-    while (dst[i])
-        i++;
-    if (size > 0)
+    dst_len = 0;
+    src_len = 0;
+    while (dst_len < size && dst[dst_len])
+        dst_len++;
+    while (src[src_len])
+        src_len++;
+    if (dst_len == size)
+        return (dst_len + src_len);   
+    i = 0;  
+    while (i  < (size - dst_len - 1) && src[i])
     {
-        while (j < size - 1 && src[j])
-        {
-            dst[i] = src[j];
-            i++;
-            j++;
-        }
-        dst[i] = '\0';
-    }
-    while ((src[j]))
-    {
+        dst[dst_len + i] = src[i];
         i++;
-        j++;
     }
-    return (i);
+    if (dst_len + i < size)
+        dst[dst_len + i] = '\0';
+    return (dst_len + src_len);  
 }
