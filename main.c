@@ -5,6 +5,8 @@
 
 #include <bsd/string.h>
 
+char	*ft_strrchr(const char *s, int c);
+
 int	main(void)
 {
     //  int val;
@@ -465,6 +467,7 @@ int	main(void)
 
 
     // ---------------- strnstr ----------------
+    /*
     printf("\n=== Testing strnstr ===\n");
 
     const char *big;
@@ -532,8 +535,131 @@ int	main(void)
     PRINT_RESULT(big, little, len);
 
     #undef PRINT_RESULT
+    */
 
 
+
+
+    // ---------------- strchr ----------------
+    /*printf("\n=== Testing strchr ===\n");
+
+    const char *s;
+    int c;
+    char *res_ft;
+    char *res_std;
+
+    // Helper to print results
+    #define PRINT_RESULT(s, c) do { \
+        res_ft  = ft_strchr(s, c); \
+        res_std = strchr(s, c); \
+        if (c == '\0') \
+            printf("s=\"%s\", c='\\\\0' => ft=%s | std=%s\n\n", \
+                s, res_ft ? res_ft : "NULL", res_std ? res_std : "NULL"); \
+        else \
+            printf("s=\"%s\", c='%c' => ft=%s | std=%s\n\n", \
+                s, c, res_ft ? res_ft : "NULL", res_std ? res_std : "NULL"); \
+    } while(0)
+
+    // 1. Character present in the middle
+    s = "Hello World"; c = 'W';
+    PRINT_RESULT(s, c);
+
+    // 2. Character present at the beginning
+    s = "Hello"; c = 'H';
+    PRINT_RESULT(s, c);
+
+    // 3. Character present at the end
+    s = "Hello"; c = 'o';
+    PRINT_RESULT(s, c);
+
+    // 4. Character not present
+    s = "Hello"; c = 'x';
+    PRINT_RESULT(s, c);
+
+    // 5. Empty string, search for non-null
+    s = ""; c = 'a';
+    PRINT_RESULT(s, c);
+
+    // 6. Empty string, search for '\0'
+    s = ""; c = '\0';
+    PRINT_RESULT(s, c);
+
+    // 7. Non-empty string, search for '\0'
+    s = "Hello"; c = '\0';
+    PRINT_RESULT(s, c);
+
+    // 8. Multiple occurrences (should return first)
+    s = "banana"; c = 'a';
+    PRINT_RESULT(s, c);
+
+    // 9. Non-ASCII character (UTF-8 edge case)
+    // s = "héllo"; c = 'é';
+    // PRINT_RESULT(s, c);
+
+    #undef PRINT_RESULT
+    */
+
+
+    // ---------------- strrchr ----------------
+    /*
+    printf("\n=== Testing strrchr ===\n");
+
+    const char *s;
+    int c;
+    char *res_ft;
+    char *res_std;
+
+    // Helper to print results
+    #define PRINT_RESULT(s, c) do { \
+        res_ft  = ft_strrchr(s, c); \
+        res_std = strrchr(s, c); \
+        if (c == '\0') \
+            printf("s=\"%s\", c='\\\\0' => ft=%s | std=%s\n\n", \
+                s, res_ft ? res_ft : "NULL", res_std ? res_std : "NULL"); \
+        else \
+            printf("s=\"%s\", c='%c' => ft=%s | std=%s\n\n", \
+                s, c, res_ft ? res_ft : "NULL", res_std ? res_std : "NULL"); \
+    } while(0)
+
+    // 1. Character present in the middle
+    s = "Hello World"; c = 'o';
+    PRINT_RESULT(s, c);
+
+    // 2. Character present at the beginning
+    s = "Hello"; c = 'H';
+    PRINT_RESULT(s, c);
+
+    // 3. Character present at the end
+    s = "Hello"; c = 'o';
+    PRINT_RESULT(s, c);
+
+    // 4. Character not present
+    s = "Hello"; c = 'x';
+    PRINT_RESULT(s, c);
+
+    // 5. Empty string, search for non-null
+    s = ""; c = 'a';
+    PRINT_RESULT(s, c);
+
+    // 6. Empty string, search for '\0'
+    s = ""; c = '\0';
+    PRINT_RESULT(s, c);
+
+    // 7. Non-empty string, search for '\0'
+    s = "Hello"; c = '\0';
+    PRINT_RESULT(s, c);
+
+    // 8. Multiple occurrences (should return last)
+    s = "banana"; c = 'a';
+    PRINT_RESULT(s, c);
+
+    // 9. Non-ASCII character (UTF-8 edge case)
+    // s = "héllo"; c = 'é';
+    // PRINT_RESULT(s, c);
+
+    #undef PRINT_RESULT
+
+    */
 
 	return (0);
 }

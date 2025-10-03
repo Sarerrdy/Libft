@@ -20,6 +20,8 @@ int		ft_atoi(const char *nptr);
 int		ft_strlcpy(char *dst, const char *src, int size);
 int		ft_strlcat(char *dst, const char *src, unsigned int size);
 int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
-char	*ft_strnstr(const char *big, const char*little, unsigned int len);
+char	*ft_strnstr(const char *big, const char *little, unsigned int len);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
 
 #endif
