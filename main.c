@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <stddef.h>
 #include "libft.h"
 
 #include <bsd/string.h>
@@ -660,6 +661,222 @@ int	main(void)
     #undef PRINT_RESULT
 
     */
+
+
+
+/* 
+    printf("\n=== Testing memset ===\n");
+
+    char buf1[20];
+    char buf2[20];
+    void *res_ft;
+    void *res_std;
+
+    // Helper to reset buffers before each test
+    #define RESET_BUFFERS(init) do { \
+        memset(buf1, init, sizeof(buf1)); \
+        memset(buf2, init, sizeof(buf2)); \
+    } while(0)
+
+    // Helper to print results
+    #define PRINT_RESULT(c, n) do { \
+        res_ft  = ft_memset(buf1, c, n); \
+        res_std = memset(buf2, c, n); \
+        printf("c=%d, n=%zu => ft_ptr=%p | std_ptr=%p\n", c, (size_t)(n), res_ft, res_std); \
+        printf("ft=["); \
+        for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]); \
+        printf("] | std=["); \
+        for (size_t i = 0; i < sizeof(buf2); i++) printf("%02X ", (unsigned char)buf2[i]); \
+        printf("]\n\n"); \
+    } while(0)
+
+    // 1. n = 0 (should not modify anything) — use variable to avoid GCC warning
+    RESET_BUFFERS('A');
+    size_t zero = 0;
+    PRINT_RESULT('B', zero);
+
+    // 2. Fill entire buffer with 'X'
+    RESET_BUFFERS('A');
+    PRINT_RESULT('X', sizeof(buf1));
+
+    // 3. Fill part of buffer (first 5 bytes)
+    RESET_BUFFERS('A');
+    PRINT_RESULT('Z', 5);
+
+    // 4. Fill with 0 (common for initialization)
+    RESET_BUFFERS('A');
+    PRINT_RESULT(0, sizeof(buf1));
+
+    // 5. Fill with non-ASCII value (e.g., 200)
+    RESET_BUFFERS('A');
+    PRINT_RESULT(200, 10);
+
+    // 6. Fill with 255 (0xFF)
+    RESET_BUFFERS('A');
+    PRINT_RESULT(255, 8);
+
+    // 7. Fill with negative value (e.g., -1, should be cast to unsigned char 0xFF)
+    RESET_BUFFERS('A');
+    PRINT_RESULT(-1, 6);
+
+    // 8. Fill only middle section (simulate offset pointer)
+    RESET_BUFFERS('A');
+    res_ft  = ft_memset(buf1 + 5, '*', 5);
+    res_std = memset(buf2 + 5, '*', 5);
+    printf("offset fill => ft=[");
+    for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]);
+    printf("] | std=[");
+    for (size_t i = 0; i < sizeof(buf2); i++) printf("%02X ", (unsigned char)buf2[i]);
+    printf("]\n\n"); */
+
+
+
+
+    // ---------------- bzero ----------------
+    
+   /*  printf("\n=== Testing bzero ===\n");
+
+    char buf1[20];
+    char buf2[20];
+
+    // Helper to reset buffers before each test
+    #define RESET_BUFFERS(init) do { \
+        memset(buf1, init, sizeof(buf1)); \
+        memset(buf2, init, sizeof(buf2)); \
+    } while(0)
+
+    // Helper to print results
+    #define PRINT_RESULT(n) do { \
+        ft_bzero(buf1, n); \
+        bzero(buf2, n); \
+        printf("n=%zu => ft=[", (size_t)(n)); \
+        for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]); \
+        printf("] | std=["); \
+        for (size_t i = 0; i < sizeof(buf2); i++) printf("%02X ", (unsigned char)buf2[i]); \
+        printf("]\n\n"); \
+    } while(0)
+
+    // 1. n = 0 (should not modify anything)
+    RESET_BUFFERS('A');
+    size_t zero = 0;
+    PRINT_RESULT(zero);
+
+    // 2. Zero entire buffer
+    RESET_BUFFERS('A');
+    PRINT_RESULT(sizeof(buf1));
+
+    // 3. Zero first 5 bytes
+    RESET_BUFFERS('A');
+    PRINT_RESULT(5);
+
+    // 4. Zero middle section (simulate offset pointer)
+    RESET_BUFFERS('A');
+    ft_bzero(buf1 + 5, 5);
+    bzero(buf2 + 5, 5);
+    printf("offset fill => ft=[");
+    for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]);
+    printf("] | std=[");
+    for (size_t i = 0; i < sizeof(buf2); i++) printf("%02X ", (unsigned char)buf2[i]);
+    printf("]\n\n"); 
+    */
+
+    
+   
+// ---------------- memcpy ----------------
+    printf("\n=== Testing memcpy ===\n");
+
+    char buf1[20];
+    char buf2[20];
+    char ref1[20];
+    char ref2[20];
+
+    #define RESET_BUFFERS(init) do { \
+        memset(buf1, init, sizeof(buf1)); \
+        memset(buf2, init, sizeof(buf2)); \
+        memset(ref1, init, sizeof(ref1)); \
+        memset(ref2, init, sizeof(ref2)); \
+    } while(0)
+
+    #define PRINT_MEMCPY(n, dest_off, src_off) do { \
+        ft_memcpy(buf1 + (dest_off), buf2 + (src_off), (n)); \
+        memcpy(ref1 + (dest_off), ref2 + (src_off), (n)); \
+        printf("n=%zu, dest_off=%d, src_off=%d =>\n", (size_t)(n), dest_off, src_off); \
+        printf("  ft =["); \
+        for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]); \
+        printf("]\n  std=["); \
+        for (size_t i = 0; i < sizeof(ref1); i++) printf("%02X ", (unsigned char)ref1[i]); \
+        printf("]\n\n"); \
+    } while(0)
+
+    // 1. n = 0
+    RESET_BUFFERS('A');
+    PRINT_MEMCPY(0, 0, 0);
+
+    // 2. Copy 5 bytes from middle of src into start of dest
+    RESET_BUFFERS('B');
+    PRINT_MEMCPY(5, 0, 10);
+
+    // 3. Copy full buffer
+    RESET_BUFFERS('C');
+    PRINT_MEMCPY(sizeof(buf1), 0, 0);
+
+    // 4. dest == src (legal, no-op) -> test only ft_memcpy
+    RESET_BUFFERS('D');
+    ft_memcpy(buf1, buf1, 10);
+    // no memcpy(ref1, ref1, 10);  // would trigger restrict error
+    printf("dest==src => ft=[");
+    for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]);
+    printf("]\n\n");
+
+
+
+
+    
+    // ---------------- memmove ----------------
+    printf("\n=== Testing memmove ===\n");
+
+    char m1[20];
+    char r1[20];
+
+    #define RESET_MOVEBUFFERS(init) do { \
+        memset(m1, init, sizeof(m1)); \
+        memset(r1, init, sizeof(r1)); \
+    } while(0)
+
+    #define PRINT_MEMMOVE(n, dest_off, src_off) do { \
+        ft_memmove(m1 + (dest_off), m1 + (src_off), (n)); \
+        memmove(r1 + (dest_off), r1 + (src_off), (n)); \
+        printf("n=%zu, dest_off=%d, src_off=%d =>\n", (size_t)(n), dest_off, src_off); \
+        printf("  ft =["); \
+        for (size_t i = 0; i < sizeof(m1); i++) printf("%02X ", (unsigned char)m1[i]); \
+        printf("]\n  std=["); \
+        for (size_t i = 0; i < sizeof(r1); i++) printf("%02X ", (unsigned char)r1[i]); \
+        printf("]\n\n"); \
+    } while(0)
+
+    // 1. n = 0
+    RESET_MOVEBUFFERS('A');
+    PRINT_MEMMOVE(0, 0, 0);
+
+    // 2. Non-overlapping copy
+    RESET_MOVEBUFFERS('B');
+    PRINT_MEMMOVE(5, 0, 10);
+
+    // 3. Overlap: dest < src
+    RESET_MOVEBUFFERS('C');
+    PRINT_MEMMOVE(5, 0, 2);
+
+    // 4. Overlap: dest > src
+    RESET_MOVEBUFFERS('D');
+    PRINT_MEMMOVE(5, 2, 0);
+
+    // 5. Full buffer move
+    RESET_MOVEBUFFERS('E');
+    PRINT_MEMMOVE(sizeof(m1), 0, 0);
+
+
+
+
 
 	return (0);
 }
