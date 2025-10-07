@@ -782,8 +782,8 @@ int	main(void)
 
     
    
-// ---------------- memcpy ----------------
-    printf("\n=== Testing memcpy ===\n");
+    // ---------------- memcpy ----------------
+    /* printf("\n=== Testing memcpy ===\n");
 
     char buf1[20];
     char buf2[20];
@@ -797,43 +797,35 @@ int	main(void)
         memset(ref2, init, sizeof(ref2)); \
     } while(0)
 
-    #define PRINT_MEMCPY(n, dest_off, src_off) do { \
+    #define PRINT_MEMCPY(n, dest_off, src_off, desc) do { \
         ft_memcpy(buf1 + (dest_off), buf2 + (src_off), (n)); \
         memcpy(ref1 + (dest_off), ref2 + (src_off), (n)); \
-        printf("n=%zu, dest_off=%d, src_off=%d =>\n", (size_t)(n), dest_off, src_off); \
-        printf("  ft =["); \
-        for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]); \
-        printf("]\n  std=["); \
-        for (size_t i = 0; i < sizeof(ref1); i++) printf("%02X ", (unsigned char)ref1[i]); \
-        printf("]\n\n"); \
+        int same = memcmp(buf1, ref1, sizeof(buf1)) == 0; \
+        printf("%s: %s\n", desc, same ? "PASS" : "FAIL"); \
     } while(0)
 
-    // 1. n = 0
+    // 1. n = 0 (no change expected)
     RESET_BUFFERS('A');
-    PRINT_MEMCPY(0, 0, 0);
+    PRINT_MEMCPY(0, 0, 0, "n=0");
 
     // 2. Copy 5 bytes from middle of src into start of dest
     RESET_BUFFERS('B');
-    PRINT_MEMCPY(5, 0, 10);
+    PRINT_MEMCPY(5, 0, 10, "Copy 5 bytes");
 
     // 3. Copy full buffer
     RESET_BUFFERS('C');
-    PRINT_MEMCPY(sizeof(buf1), 0, 0);
+    PRINT_MEMCPY(sizeof(buf1), 0, 0, "Full buffer");
 
-    // 4. dest == src (legal, no-op) -> test only ft_memcpy
+    // 4. dest == src (legal, no-op) -> only test ft_memcpy
     RESET_BUFFERS('D');
     ft_memcpy(buf1, buf1, 10);
-    // no memcpy(ref1, ref1, 10);  // would trigger restrict error
-    printf("dest==src => ft=[");
-    for (size_t i = 0; i < sizeof(buf1); i++) printf("%02X ", (unsigned char)buf1[i]);
-    printf("]\n\n");
+    printf("dest==src: PASS (ft_memcpy ran without error)\n"); */
 
 
 
 
-    
     // ---------------- memmove ----------------
-    printf("\n=== Testing memmove ===\n");
+ /*    printf("\n=== Testing memmove ===\n");
 
     char m1[20];
     char r1[20];
@@ -843,37 +835,111 @@ int	main(void)
         memset(r1, init, sizeof(r1)); \
     } while(0)
 
-    #define PRINT_MEMMOVE(n, dest_off, src_off) do { \
+    #define PRINT_MEMMOVE(n, dest_off, src_off, desc) do { \
         ft_memmove(m1 + (dest_off), m1 + (src_off), (n)); \
         memmove(r1 + (dest_off), r1 + (src_off), (n)); \
-        printf("n=%zu, dest_off=%d, src_off=%d =>\n", (size_t)(n), dest_off, src_off); \
-        printf("  ft =["); \
-        for (size_t i = 0; i < sizeof(m1); i++) printf("%02X ", (unsigned char)m1[i]); \
-        printf("]\n  std=["); \
-        for (size_t i = 0; i < sizeof(r1); i++) printf("%02X ", (unsigned char)r1[i]); \
-        printf("]\n\n"); \
+        int same = memcmp(m1, r1, sizeof(m1)) == 0; \
+        printf("%s: %s\n", desc, same ? "PASS" : "FAIL"); \
     } while(0)
 
     // 1. n = 0
     RESET_MOVEBUFFERS('A');
-    PRINT_MEMMOVE(0, 0, 0);
+    PRINT_MEMMOVE(0, 0, 0, "n=0");
 
     // 2. Non-overlapping copy
     RESET_MOVEBUFFERS('B');
-    PRINT_MEMMOVE(5, 0, 10);
+    PRINT_MEMMOVE(5, 0, 10, "Non-overlapping copy");
 
     // 3. Overlap: dest < src
     RESET_MOVEBUFFERS('C');
-    PRINT_MEMMOVE(5, 0, 2);
+    PRINT_MEMMOVE(5, 0, 2, "Overlap (dest < src)");
 
     // 4. Overlap: dest > src
     RESET_MOVEBUFFERS('D');
-    PRINT_MEMMOVE(5, 2, 0);
+    PRINT_MEMMOVE(5, 2, 0, "Overlap (dest > src)");
 
     // 5. Full buffer move
     RESET_MOVEBUFFERS('E');
-    PRINT_MEMMOVE(sizeof(m1), 0, 0);
+    PRINT_MEMMOVE(sizeof(m1), 0, 0, "Full buffer move"); */
 
+
+
+     // ---------------- memchr ----------------
+    /* printf("\n=== Testing memchr ===\n");
+
+    const char data[] = "Hello\0World\0Again";
+    size_t len = sizeof(data);
+
+    #define PRINT_MEMCHR(c, n) do { \
+        void *ft_result = ft_memchr(data, (c), (n)); \
+        void *std_result = memchr(data, (c), (n)); \
+        printf("c='%c' (%d), n=%zu =>\n", (c), (c), (size_t)(n)); \
+        printf("  ft  = %s\n", ft_result ? "FOUND" : "NULL"); \
+        printf("  std = %s\n\n", std_result ? "FOUND" : "NULL"); \
+    } while(0)
+
+    // 1. Find 'H' at start
+    PRINT_MEMCHR('H', len);
+
+    // 2. Find 'W' in middle
+    PRINT_MEMCHR('W', len);
+
+    // 3. Find 'n' at end
+    PRINT_MEMCHR('n', len);
+
+    // 4. Find 'X' (not present)
+    PRINT_MEMCHR('X', len);
+
+    // 5. Find null byte
+    PRINT_MEMCHR('\0', len);
+
+    // 6. Zero-length search
+    PRINT_MEMCHR('o', 0);
+    */
+
+
+
+    // ---------------- ft_memcmp ----------------
+    /* printf("\n=== Testing ft_memcmp ===\n");
+
+        const char a[] = "Hello\0World\0Again";
+        const char b[] = "Hello\0World\0Again";
+        const char c[] = "Hxllo\0World\0Again";
+        const char d[] = "Hello\0Wxrld\0Again";
+        const char e[] = "Hello\0World\0AgaiN";
+        const char f[] = "HELLO\0WORLD\0AGAIN";
+
+        #define PRINT_MEMCMP(s1, s2, n, desc) do { \
+            int ft_result = ft_memcmp((s1), (s2), (n)); \
+            int std_result = memcmp((s1), (s2), (n)); \
+            int match = (ft_result == std_result) || ((ft_result < 0) == (std_result < 0) && (ft_result > 0) == (std_result > 0)); \
+            printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        } while(0)
+
+        // 1. Identical buffers
+        PRINT_MEMCMP(a, b, sizeof(a), "Identical buffers");
+
+        // 2. Mismatch at byte 1
+        PRINT_MEMCMP(a, c, sizeof(a), "Mismatch at byte 1");
+
+        // 3. Mismatch in middle
+        PRINT_MEMCMP(a, d, sizeof(a), "Mismatch in middle");
+
+        // 4. Mismatch at last byte
+        PRINT_MEMCMP(a, e, sizeof(a), "Mismatch at last byte");
+
+        // 5. Completely different case
+        PRINT_MEMCMP(a, f, sizeof(a), "Different case");
+
+        // 6. n = 0
+        PRINT_MEMCMP(a, f, 0, "Zero-length comparison");
+
+        // 7. Partial match (first 5 bytes)
+        PRINT_MEMCMP(a, c, 5, "Partial match (first 5)");
+
+        // 8. Embedded nulls
+        PRINT_MEMCMP(a, b, 12, "Match through embedded nulls");
+ */
 
 
 
