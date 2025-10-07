@@ -941,6 +941,88 @@ int	main(void)
         PRINT_MEMCMP(a, b, 12, "Match through embedded nulls");
  */
 
+    //------------------------ft_substr--------------
+   /*  printf("\n=== Testing ft_substr ===\n");
+
+    #define PRINT_SUBSTR(s, start, len, expected, desc)do { \
+        char *ft_result = ft_substr((s), (start), (len)); \
+        int match = ft_result && strcmp(ft_result, (expected)) == 0; \
+        printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        if (!match) printf(" Expected: \"%s\", Got: \"%s\"\n", (expected), ft_result ? ft_result : "NULL"); \
+        free(ft_result); \
+    }while (0)
+
+    // 1. Normal substring
+    PRINT_SUBSTR("Hello World", 6, 5, "World", "Extract 'World'");
+    // 2. Start beyond string length
+    PRINT_SUBSTR("Hello", 10, 3, "", "Start beyond string length");
+
+    // 3. Length exceeds string end
+    PRINT_SUBSTR("Hello", 3, 10, "lo", "Length exceeds string end");
+
+    // 4. Zero length
+    PRINT_SUBSTR("Hello", 2, 0, "", "Zero length");
+
+    // 5. Empty string input
+    PRINT_SUBSTR("", 0, 5, "", "Empty string input");
+
+    // 6. Full string
+    PRINT_SUBSTR("Test", 0, 4, "Test", "Full string");
+ */
+
+
+    // ------------------------ ft_strjoin ----------------
+    printf("\n=== Testing ft_strjoin ===\n");
+
+    #define PRINT_STRJOIN(s1, s2, expected, desc) do { \
+        char *ft_result = ft_strjoin((s1), (s2)); \
+        int match; \
+        if (expected == NULL && ft_result == NULL) { \
+            match = 1; \
+        } else if (expected != NULL && ft_result != NULL && strcmp(ft_result, expected) == 0) { \
+            match = 1; \
+        } else { \
+            match = 0; \
+        } \
+        printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        if (!match) printf("  Expected: \"%s\", Got: \"%s\"\n", \
+                        expected ? expected : "NULL", \
+                        ft_result ? ft_result : "NULL"); \
+        free(ft_result); \
+    } while (0)
+
+
+    // 1. Normal join
+    PRINT_STRJOIN("Hello", "World", "HelloWorld", "Join two normal strings");
+
+    // 2. First string empty
+    PRINT_STRJOIN("", "World", "World", "First string empty");
+
+    // 3. Second string empty
+    PRINT_STRJOIN("Hello", "", "Hello", "Second string empty");
+
+    // 4. Both strings empty
+    PRINT_STRJOIN("", "", "", "Both strings empty");
+
+    // 5. First string NULL
+    PRINT_STRJOIN(NULL, "World", "World", "First string NULL (treated as empty)");
+
+    // 6. Second string NULL
+    PRINT_STRJOIN("Hello", NULL, "Hello", "Second string NULL (treated as empty)");
+
+    // 7. Both strings NULL
+    PRINT_STRJOIN(NULL, NULL, NULL, "Both strings NULL → expect NULL");
+
+    // 8. Strings with spaces
+    PRINT_STRJOIN("Hello ", "World", "Hello World", "Join with space in first string");
+
+    // 9. Strings with special characters
+    PRINT_STRJOIN("123", "!@#", "123!@#", "Join with special characters");
+
+    // 10. Longer strings
+    PRINT_STRJOIN("This is a long string ", "joined with another long string",
+                  "This is a long string joined with another long string",
+                  "Join two longer strings");
 
 
 

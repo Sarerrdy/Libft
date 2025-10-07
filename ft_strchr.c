@@ -1,16 +1,27 @@
-char *ft_strchr(const char *s, int c)
-{
-    int i;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/07 15:50:56 by eina              #+#    #+#             */
+/*   Updated: 2025/10/07 15:51:01 by eina             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-    i = 0;
-    while (s[i])
-    {
-        if (s[i] == (char)c)
-            return ((char *)&s[i]);
-        i++;
-    }
-    if ((char)c == '\0')
-            return ((char *)&s[i]);
-    return (0);
-    
+char	*ft_strchr(const char *s, int c)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (0);
 }

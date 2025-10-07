@@ -1,22 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/07 15:59:00 by eina              #+#    #+#             */
+/*   Updated: 2025/10/07 15:59:17 by eina             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-    int i;
+	size_t i;
 
-    i = ft_strlen(s)-1;
-    while (i >= 0)
-    {
-        if (s[i] == (char)c)
-        {
-            return ((char *)&s[i]);
-        }
-        i--;
-    }
-    if ((char)c == '\0')
-    {
-        return ((char *)&s[i]);
-    }
-    return (0);
-
+	i = ft_strlen(s) - 1;
+	while (i >= 0)
+	{
+		if (s[i] == (char)c)
+		{
+			return ((char *)&s[i]);
+		}
+		i--;
+	}
+	if ((char)c == '\0')
+	{
+		return ((char *)&s[i]);
+	}
+	return (0);
 }
