@@ -972,7 +972,7 @@ int	main(void)
 
 
     // ------------------------ ft_strjoin ----------------
-    printf("\n=== Testing ft_strjoin ===\n");
+   /*  printf("\n=== Testing ft_strjoin ===\n");
 
     #define PRINT_STRJOIN(s1, s2, expected, desc) do { \
         char *ft_result = ft_strjoin((s1), (s2)); \
@@ -1022,7 +1022,223 @@ int	main(void)
     // 10. Longer strings
     PRINT_STRJOIN("This is a long string ", "joined with another long string",
                   "This is a long string joined with another long string",
-                  "Join two longer strings");
+                  "Join two longer strings"); */
+
+
+     
+    
+    
+    // ------------------------ ft_strtrim----------------
+
+    /* #define PRINT_STRTRIM(s1, set, expected, desc) do { \
+        char *ft_result = ft_strtrim((s1), (set)); \
+        int match = 0; \
+        if (expected == NULL && ft_result == NULL) { \
+            match = 1; \
+        } else if (expected != NULL && ft_result != NULL) { \
+            if (strcmp(ft_result, expected) == 0) \
+                match = 1; \
+        } \
+        printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        if (!match) printf("  Expected: \"%s\", Got: \"%s\"\n", \
+                            expected ? expected : "NULL", \
+                            ft_result ? ft_result : "NULL"); \
+        free(ft_result); \
+    } while (0)
+
+
+    printf("\n=== Testing ft_strtrim ===\n");
+
+    // 1. Trim spaces from both ends
+    PRINT_STRTRIM("  Hello World  ", " ", "Hello World", "Trim spaces from both ends");
+
+    // 2. Trim 'x' from both ends
+    PRINT_STRTRIM("xx42Viennaxx", "x", "42Vienna", "Trim 'x' from both ends");
+
+    // 3. Empty set — no trimming
+    PRINT_STRTRIM("42Vienna", "", "42Vienna", "Empty set — no trimming");
+
+    // 4. Empty string input
+    PRINT_STRTRIM("", " ", "", "Empty string input");
+
+    // 5. Only set characters — should return empty string
+    PRINT_STRTRIM("     ", " ", "", "Only set characters");
+
+    // 6. All characters in set — should return empty string
+    PRINT_STRTRIM("abc", "abc", "", "All characters in set");
+
+    // 7. No characters in set — should return original string
+    PRINT_STRTRIM("abc", "xyz", "abc", "No characters in set");
+
+    // 8. Internal spaces preserved
+    PRINT_STRTRIM("  Hello  World  ", " ", "Hello  World", "Trim spaces — internal preserved");
+
+    // 9. Trim whitespace characters
+    PRINT_STRTRIM("  \t\nHello\t\n  ", " \t\n", "Hello", "Trim whitespace characters"); 
+    
+    */
+
+
+
+    // ------------------------ ft_calloc ----------------
+
+    /* #define PRINT_CALLOC(nmemb, size, expect_null, desc) do { \
+        void *ft_result = ft_calloc((nmemb), (size)); \
+        int match = 0; \
+        if (expect_null) { \
+            if (ft_result == NULL) \
+                match = 1; \
+        } else { \
+            if (ft_result != NULL) { \
+                size_t total = (nmemb) * (size); \
+                unsigned char *bytes = (unsigned char *)ft_result; \
+                int all_zero = 1; \
+                for (size_t i = 0; i < total; i++) { \
+                    if (bytes[i] != 0) { all_zero = 0; break; } \
+                } \
+                if (all_zero) \
+                    match = 1; \
+            } \
+        } \
+        printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        if (!match) { \
+            printf("  Expected: %s, Got: %s\n", \
+                expect_null ? "NULL" : "non-NULL zeroed block", \
+                ft_result ? "non-NULL" : "NULL"); \
+        } \
+        free(ft_result); \
+    } while (0)
+
+    printf("\n=== Testing ft_calloc ===\n");
+
+    // 1. Zero nmemb
+    PRINT_CALLOC(0, sizeof(int), 0, "Zero nmemb (malloc(0) allowed)");
+
+    // 2. Zero size
+    PRINT_CALLOC(10, 0, 0, "Zero size (malloc(0) allowed)");
+
+    // 3. Overflow case
+    PRINT_CALLOC(SIZE_MAX, 2, 1, "Overflow should return NULL");
+
+    // 4. Small normal allocation
+    PRINT_CALLOC(5, sizeof(int), 0, "Small allocation, should be zeroed");
+
+    // 5. Large allocation (may fail depending on system, but not overflow)
+    PRINT_CALLOC(1000000, sizeof(int), 0, "Large allocation (system-dependent)"); 
+    
+    */
+
+
+
+    // ------------------------ ft_strdup----------------
+    /* #define PRINT_STRDUP(input, desc) do { \
+        char *ft_result = ft_strdup(input); \
+        char *std_result = strdup(input); \
+        int match = 0; \
+        if (!ft_result || !std_result) { \
+            match = (ft_result == NULL && std_result == NULL); \
+        } else { \
+            match = (strcmp(ft_result, std_result) == 0); \
+        } \
+        printf("%s: %s\n", desc, match ? "PASS" : "FAIL"); \
+        if (!match) { \
+            printf("  Input: \"%s\"\n", input); \
+            printf("  Expected: \"%s\"\n", std_result ? std_result : "NULL"); \
+            printf("  Got: \"%s\"\n", ft_result ? ft_result : "NULL"); \
+        } \
+        free(ft_result); \
+        free(std_result); \
+    } while (0)
+    
+
+    printf("\n=== Testing ft_strdup ===\n");
+
+    // 1. Empty string
+    PRINT_STRDUP("", "Empty string");
+
+    // 2. Short string
+    PRINT_STRDUP("Hello", "Short string");
+
+    // 3. Long string
+    PRINT_STRDUP("This is a long string used to test ft_strdup against strdup for correctness.", "Long string");
+
+    // 4. String with embedded nulls (manual comparison only)
+    char embedded[] = {'A', 'B', '\0', 'C', 'D', '\0'};
+    PRINT_STRDUP(embedded, "Embedded nulls (partial copy)");
+
+    // 5. String with special characters
+    PRINT_STRDUP("!@#$%^&*()_+-=[]{}|;':\",.<>/?", "Special characters");
+
+    // 6. String with whitespace
+    PRINT_STRDUP("   \t\n  Hello World  \n", "Whitespace string");
+
+    // 7. Very large string (system-dependent)
+    char *large = malloc(1000000);
+    if (large) {
+        memset(large, 'A', 999999);
+        large[999999] = '\0';
+        PRINT_STRDUP(large, "Very large string");
+        free(large);
+    } */
+
+
+
+    // ------------------------ ft_split ----------------
+
+    printf("\n=== Testing ft_split ===\n");
+
+    #define PRINT_SPLIT(input, delim, desc) do { \
+        char **result = ft_split((input), (delim)); \
+        printf("%s:\n", desc); \
+        if (!result) { \
+            printf("  Result: NULL\n"); \
+        } else { \
+            int i = 0; \
+            while (result[i]) { \
+                printf("  [%d]: \"%s\"\n", i, result[i]); \
+                i++; \
+            } \
+            printf("  [%d]: NULL\n", i); \
+            /* Free memory */ \
+            for (int j = 0; j < i; j++) \
+                free(result[j]); \
+            free(result); \
+        } \
+        printf("\n"); \
+    } while (0)
+
+
+    // 1. Empty string
+    PRINT_SPLIT("", ',', "Empty string");
+
+    // 2. No delimiter present
+    PRINT_SPLIT("hello", ',', "No delimiter present");
+
+    // 3. Only delimiters
+    PRINT_SPLIT(",,,", ',', "Only delimiters");
+
+    // 4. Leading and trailing delimiters
+    PRINT_SPLIT(",hello,world,", ',', "Leading and trailing delimiters");
+
+    // 5. Consecutive delimiters
+    PRINT_SPLIT("a,,b,,,c", ',', "Consecutive delimiters");
+
+    // 6. Single word
+    PRINT_SPLIT("word", ',', "Single word");
+
+    // 7. Delimiter is space
+    PRINT_SPLIT("split this string", ' ', "Space as delimiter");
+
+    // 8. Delimiter is null character (undefined behavior)
+    PRINT_SPLIT("abc", '\0', "Null delimiter (edge case)");
+
+    // 9. Long input
+    PRINT_SPLIT("this,is,a,very,long,string,with,many,commas,to,test,split", ',', "Long input");
+
+    // 10. String with embedded whitespace
+    PRINT_SPLIT("  a b  c   d ", ' ', "Whitespace with uneven spacing");
+
+
 
 
 
