@@ -8,6 +8,49 @@
 
 char	*ft_strrchr(const char *s, int c);
 
+// Example mapping functions
+char to_upper(unsigned int i, char c) {
+    (void)i;
+    return (c >= 'a' && c <= 'z') ? c - 32 : c;
+}
+
+char shift_char(unsigned int i, char c) {
+    return c + (i % 3); // shift ASCII value by index mod 3
+}
+
+char identity(unsigned int i, char c) {
+    (void)i;
+    return c; // return unchanged
+}
+
+// Uppercase every even index
+void to_upper_even(unsigned int i, char *c) {
+    if (i % 2 == 0 && *c >= 'a' && *c <= 'z')
+        *c -= 32;
+}
+
+// Replace vowels with '*'
+void mask_vowels(unsigned int i, char *c) {
+    (void)i;
+    if (*c=='a'||*c=='e'||*c=='i'||*c=='o'||*c=='u'||
+        *c=='A'||*c=='E'||*c=='I'||*c=='O'||*c=='U')
+        *c = '*';
+}
+
+// Shift ASCII value by index
+void shift_by_index(unsigned int i, char *c) {
+    *c = *c + (i % 3);
+}
+
+// Identity (no change)
+void identity1(unsigned int i, char *c) {
+    (void)i;
+    (void)c;
+}
+
+
+
+
 int	main(void)
 {
     //  int val;
@@ -1243,7 +1286,7 @@ int	main(void)
 
     // ------------------------ ft_itoa ----------------
 
-    printf("\n=== Testing ft_itoa ===\n");
+    /* printf("\n=== Testing ft_itoa ===\n");
 
     #define PRINT_ITOA(input, desc) do { \
         char *result = ft_itoa((input)); \
@@ -1287,6 +1330,122 @@ int	main(void)
 
     // 10. Edge case: 1
     PRINT_ITOA(1, "Positive one");
+ */
+
+
+
+
+
+    // ------------------------ ft_strmapi ----------------
+
+    /*
+    printf("\n=== Testing ft_strmapi ===\n");
+
+    #define PRINT_STRMAPI(input, func, desc) do { \
+        char *result = ft_strmapi((input), (func)); \
+        printf("%s:\n", desc); \
+        if (!result) { \
+            printf("  Result: NULL\n"); \
+        } else { \
+            printf("  Input: \"%s\"\n", (input) ? (input) : "NULL"); \
+            printf("  Output: \"%s\"\n", result); \
+            free(result); \
+        } \
+        printf("\n"); \
+    } while (0)
+
+    // 1. Empty string
+    PRINT_STRMAPI("", to_upper, "Empty string");
+
+    // 2. Single character
+    PRINT_STRMAPI("a", to_upper, "Single lowercase character");
+
+    // 3. Mixed case string
+    PRINT_STRMAPI("HeLLo", to_upper, "Mixed case string");
+
+    // 4. String with spaces
+    PRINT_STRMAPI("hello world", to_upper, "String with spaces");
+
+    // 5. String with punctuation
+    PRINT_STRMAPI("42!libft?", to_upper, "String with punctuation");
+
+    // 6. Using index-based shifting
+    PRINT_STRMAPI("abcdef", shift_char, "Shift characters by index");
+
+    // 7. Identity function (no change)
+    PRINT_STRMAPI("unchanged", identity, "Identity function");
+
+    // 8. NULL input string
+    PRINT_STRMAPI(NULL, to_upper, "NULL input string");
+
+    // 9. Long string
+    PRINT_STRMAPI("abcdefghijklmnopqrstuvwxyz", to_upper, "Long alphabet string");
+
+    // 10. String with non-ASCII chars
+    PRINT_STRMAPI("héllo", to_upper, "String with extended ASCII"); 
+    */
+
+
+
+
+
+
+    
+
+    // === Test Runner Macro ===
+    #define RUN_TEST(desc, str, func) do { \
+        char buffer[256]; \
+        snprintf(buffer, sizeof(buffer), "%s", str); \
+        printf("%s:\n", desc); \
+        printf("  Before: \"%s\"\n", buffer); \
+        ft_striteri(buffer, func); \
+        printf("  After:  \"%s\"\n\n", buffer); \
+    } while (0)
+
+
+    printf("=== ft_striteri Edge Case Tests ===\n\n");
+
+    // 1. Empty string
+    RUN_TEST("Empty string", "", to_upper_even);
+
+    // 2. Single character
+    RUN_TEST("Single lowercase char", "a", to_upper_even);
+
+    // 3. Mixed case string
+    RUN_TEST("Mixed case string", "HeLLo", to_upper_even);
+
+    // 4. String with spaces
+    RUN_TEST("String with spaces", "hello world", to_upper_even);
+
+    // 5. String with punctuation
+    RUN_TEST("String with punctuation", "42!libft?", to_upper_even);
+
+    // 6. Apply vowel masking
+    RUN_TEST("Mask vowels", "Hello World", mask_vowels);
+
+    // 7. Apply index-based shifting
+    RUN_TEST("Shift by index", "abcdef", shift_by_index);
+
+    // 8. Identity function (no change)
+    RUN_TEST("Identity function", "unchanged", identity1);
+
+    // 9. Long string (stress test)
+    RUN_TEST("Long alphabet string", "abcdefghijklmnopqrstuvwxyz", to_upper_even);
+
+    // 10. Extended ASCII / UTF-8 characters
+    RUN_TEST("Extended ASCII", "héllo", to_upper_even);
+
+    // 11. NULL string input (should do nothing safely)
+    printf("NULL input test:\n");
+    ft_striteri(NULL, to_upper_even);
+    printf("  Passed safely (no crash)\n\n");
+
+    // 12. NULL function pointer (should do nothing safely)
+    char buf[] = "test";
+    printf("NULL function pointer test:\n");
+    printf("  Before: \"%s\"\n", buf);
+    ft_striteri(buf, NULL);
+    printf("  After:  \"%s\"\n\n", buf);
 
 
 
