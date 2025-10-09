@@ -23,4 +23,9 @@ These are the list of the functions:
  • memcmp
  • strnstr
  • atoi
-
+ • calloc
+ • strdup
+ • ft_substr
+ • ft_strjoin
+ • ft_split
+ • ft_itoa
