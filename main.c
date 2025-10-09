@@ -3,6 +3,9 @@
 #include <string.h>
 #include <stddef.h>
 #include "libft.h"
+#include <fcntl.h>     
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include <bsd/string.h>
 
@@ -1286,7 +1289,7 @@ int	main(void)
 
     // ------------------------ ft_itoa ----------------
 
-    /* printf("\n=== Testing ft_itoa ===\n");
+     /* printf("\n=== Testing ft_itoa ===\n");
 
     #define PRINT_ITOA(input, desc) do { \
         char *result = ft_itoa((input)); \
@@ -1330,7 +1333,7 @@ int	main(void)
 
     // 10. Edge case: 1
     PRINT_ITOA(1, "Positive one");
- */
+  */
 
 
 
@@ -1390,10 +1393,10 @@ int	main(void)
 
 
 
-    
+     // ------------------------ ft_striteri ----------------
 
-    // === Test Runner Macro ===
-    #define RUN_TEST(desc, str, func) do { \
+    // === Testing ft_striteri ===
+    /* #define RUN_TEST(desc, str, func) do { \
         char buffer[256]; \
         snprintf(buffer, sizeof(buffer), "%s", str); \
         printf("%s:\n", desc); \
@@ -1445,7 +1448,139 @@ int	main(void)
     printf("NULL function pointer test:\n");
     printf("  Before: \"%s\"\n", buf);
     ft_striteri(buf, NULL);
-    printf("  After:  \"%s\"\n\n", buf);
+    printf("  After:  \"%s\"\n\n", buf); 
+    */
+
+
+
+
+     // ------------------------ ft_putchar_fd ----------------
+
+  /*   printf("=== ft_putchar_fd Edge Case Tests ===\n\n");
+
+    #define RUN_PUTCHAR_TEST(desc, c, fd) do { \
+        printf("%s:\n", desc); \
+        printf("  Writing '%c' to fd=%d\n", c, fd); \
+        ft_putchar_fd(c, fd); \
+        ft_putchar_fd('\n', 1); \
+    } while (0)
+
+    // 1. Standard output
+    RUN_PUTCHAR_TEST("Write to stdout", 'A', 1);
+
+    // 2. Standard error
+    RUN_PUTCHAR_TEST("Write to stderr", 'B', 2);
+
+    // 3. File output
+    int fd = open("test_putchar_fd.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd != -1) {
+        RUN_PUTCHAR_TEST("Write to file", 'C', fd);
+        close(fd);
+        printf("  (Check test_putchar_fd.txt for 'C')\n");
+    }
+
+    // 4. Invalid descriptor
+    RUN_PUTCHAR_TEST("Invalid fd (-1)", 'D', -1);
+
+    // 5. Special characters
+    RUN_PUTCHAR_TEST("Newline char", '\n', 1);
+    RUN_PUTCHAR_TEST("Tab char", '\t', 1); 
+    */
+
+
+
+
+    // ------------------------ ft_putstr_fd ----------------
+
+    /* printf("=== PUTSTR Edge Case Tests ===\n\n");
+
+    #define RUN_PUTSTR_TEST(desc, str, fd) do { \
+        printf("%s:\n", desc); \
+        printf("  Input string: %s\n", (str) ? str : "NULL"); \
+        printf("  Target fd: %d\n", fd); \
+        ft_putstr_fd(str, fd); \
+        ft_putchar_fd('\n', 1);\
+        printf("\n"); \
+    } while (0)
+
+    // 1. Normal string to stdout
+    RUN_PUTSTR_TEST("Write to stdout", "Hello, world!", 1);
+
+    // 2. Normal string to stderr
+    RUN_PUTSTR_TEST("Write to stderr", "Error message", 2);
+
+    // 3. Empty string
+    RUN_PUTSTR_TEST("Empty string", "", 1);
+
+    // 4. NULL string
+    RUN_PUTSTR_TEST("NULL string", NULL, 1);
+
+    // 5. Invalid file descriptor
+    RUN_PUTSTR_TEST("Invalid fd (-1)", "Should not crash", -1);
+
+    // 6. Special characters
+    RUN_PUTSTR_TEST("Special characters", "Line1\nLine2\tTabbed", 1);
+
+    // 7. Write to a file
+    int fd = open("test_putstr_fd.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd != -1) {
+        RUN_PUTSTR_TEST("Write to file", "File output test", fd);
+        close(fd);
+        printf("  (Check test_putstr_fd.txt for output)\n\n");
+    } else {
+        perror("open");
+    } */
+
+
+
+
+    // ------------------------ ft_putnbr_fd ----------------
+
+     printf("=== PUTNBR Edge Case Tests ===\n\n");
+ 
+    #define RUN_PUTNBR_TEST(desc, n, fd) do { \
+        printf("%s:\n", desc); \
+        printf("  Input number: %ld\n", (long)n); \
+        printf("  Target fd: %d\n", fd); \
+        ft_putnbr_fd(n, fd); \
+        ft_putchar_fd('\n', 1);  \
+        printf("\n"); \
+    } while (0)
+
+
+    printf("=== ft_putnbr_fd Edge Case Tests ===\n\n");
+
+    // 1. Zero
+    RUN_PUTNBR_TEST("Zero", 0, 1);
+
+    // 2. Positive number
+    RUN_PUTNBR_TEST("Positive number", 12345, 1);
+
+    // 3. Negative number
+    RUN_PUTNBR_TEST("Negative number", -98765, 1);
+
+    // 4. INT_MAX
+    RUN_PUTNBR_TEST("INT_MAX", 2147483647, 1);
+
+    // 5. INT_MIN
+    RUN_PUTNBR_TEST("INT_MIN", -2147483648, 1);
+
+    // 6. Write to stderr
+    RUN_PUTNBR_TEST("Write to stderr", 42, 2);
+
+    // 7. Invalid file descriptor
+    RUN_PUTNBR_TEST("Invalid fd (-1)", 2025, -1);
+
+    // 8. Write to a file
+    int fd = open("test_putnbr_fd.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd != -1) {
+        RUN_PUTNBR_TEST("Write to file", 123456789, fd);
+        close(fd);
+        printf("  (Check test_putnbr_fd.txt for output)\n\n");
+    } else {
+        perror("open");
+    }
+
 
 
 
