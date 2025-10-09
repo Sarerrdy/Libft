@@ -1184,7 +1184,7 @@ int	main(void)
 
 
     // ------------------------ ft_split ----------------
-
+/* 
     printf("\n=== Testing ft_split ===\n");
 
     #define PRINT_SPLIT(input, delim, desc) do { \
@@ -1199,7 +1199,6 @@ int	main(void)
                 i++; \
             } \
             printf("  [%d]: NULL\n", i); \
-            /* Free memory */ \
             for (int j = 0; j < i; j++) \
                 free(result[j]); \
             free(result); \
@@ -1236,9 +1235,58 @@ int	main(void)
     PRINT_SPLIT("this,is,a,very,long,string,with,many,commas,to,test,split", ',', "Long input");
 
     // 10. String with embedded whitespace
-    PRINT_SPLIT("  a b  c   d ", ' ', "Whitespace with uneven spacing");
+    PRINT_SPLIT("  a b  c   d ", ' ', "Whitespace with uneven spacing"); 
+    
+    */
 
+    
 
+    // ------------------------ ft_itoa ----------------
+
+    printf("\n=== Testing ft_itoa ===\n");
+
+    #define PRINT_ITOA(input, desc) do { \
+        char *result = ft_itoa((input)); \
+        printf("%s:\n", desc); \
+        if (!result) { \
+            printf("  Result: NULL\n"); \
+        } else { \
+            printf("  Input: %d\n", (input)); \
+            printf("  Output: \"%s\"\n", result); \
+            free(result); \
+        } \
+        printf("\n"); \
+    } while (0)
+
+    // 1. Zero
+    PRINT_ITOA(0, "Zero");
+
+    // 2. Positive single digit
+    PRINT_ITOA(7, "Positive single digit");
+
+    // 3. Negative single digit
+    PRINT_ITOA(-3, "Negative single digit");
+
+    // 4. Positive multi-digit
+    PRINT_ITOA(12345, "Positive multi-digit");
+
+    // 5. Negative multi-digit
+    PRINT_ITOA(-98765, "Negative multi-digit");
+
+    // 6. INT_MAX
+    PRINT_ITOA(INT_MAX, "INT_MAX");
+
+    // 7. INT_MIN
+    PRINT_ITOA(INT_MIN, "INT_MIN");
+
+    // 8. Leading zero test (not applicable to int input, but good for visual confirmation)
+    PRINT_ITOA(1000, "Positive with trailing zeros");
+
+    // 9. Edge case: -1
+    PRINT_ITOA(-1, "Negative one");
+
+    // 10. Edge case: 1
+    PRINT_ITOA(1, "Positive one");
 
 
 
