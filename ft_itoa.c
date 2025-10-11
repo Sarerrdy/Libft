@@ -11,7 +11,7 @@ char	*ft_itoa(int n)
 	nbrstr = malloc(sizeof(char) * (len + 1));
 	if (!nbrstr)
 		return (NULL);
-    nbrstr[len] = '\0';
+	nbrstr[len] = '\0';
 	if (num == 0)
 		nbrstr[0] = '0';
 	if (num < 0)

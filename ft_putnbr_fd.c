@@ -4,7 +4,7 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	long	ln;
 	int		len;
-	char	nstr[ft_int_len(n) + 1];
+	char	nstr[12];
 
 	len = ft_int_len(n);
 	ln = n;
