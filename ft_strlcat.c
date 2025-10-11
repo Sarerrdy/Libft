@@ -6,7 +6,7 @@
 /*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:51:10 by eina              #+#    #+#             */
-/*   Updated: 2025/10/07 15:53:20 by eina             ###   ########.fr       */
+/*   Updated: 2025/10/11 11:39:41 by eina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t src_len;
-	size_t dst_len;
+	size_t	i;
+	size_t	src_len;
+	size_t	dst_len;
 
 	dst_len = 0;
 	src_len = 0;

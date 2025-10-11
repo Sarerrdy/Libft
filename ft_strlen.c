@@ -6,7 +6,7 @@
 /*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:55:58 by eina              #+#    #+#             */
-/*   Updated: 2025/10/07 15:56:04 by eina             ###   ########.fr       */
+/*   Updated: 2025/10/11 11:41:17 by eina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (s[count])

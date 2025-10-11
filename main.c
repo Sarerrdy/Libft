@@ -1230,7 +1230,7 @@ int	main(void)
 
 
     // ------------------------ ft_split ----------------
-/* 
+
     printf("\n=== Testing ft_split ===\n");
 
     #define PRINT_SPLIT(input, delim, desc) do { \
@@ -1283,7 +1283,7 @@ int	main(void)
     // 10. String with embedded whitespace
     PRINT_SPLIT("  a b  c   d ", ' ', "Whitespace with uneven spacing"); 
     
-    */
+   
 
     
 
@@ -1536,7 +1536,7 @@ int	main(void)
 
     // ------------------------ ft_putnbr_fd ----------------
 
-     printf("=== PUTNBR Edge Case Tests ===\n\n");
+   /*   printf("=== PUTNBR Edge Case Tests ===\n\n");
  
     #define RUN_PUTNBR_TEST(desc, n, fd) do { \
         printf("%s:\n", desc); \
@@ -1579,7 +1579,7 @@ int	main(void)
         printf("  (Check test_putnbr_fd.txt for output)\n\n");
     } else {
         perror("open");
-    }
+    } */
 
 
 

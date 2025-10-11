@@ -6,7 +6,7 @@
 /*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:01:03 by eina              #+#    #+#             */
-/*   Updated: 2025/10/07 16:01:07 by eina             ###   ########.fr       */
+/*   Updated: 2025/10/11 11:53:31 by eina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char *newstr;
-	size_t i;
-	size_t slen;
+	char	*newstr;
+	size_t	i;
+	size_t	slen;
 
 	slen = ft_strlen(s);
 	i = 0;

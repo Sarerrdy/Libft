@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eina <eina@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/11 11:33:27 by eina              #+#    #+#             */
+/*   Updated: 2025/10/11 12:15:51 by eina             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static void	freearr(char **strarr)
@@ -62,7 +74,7 @@ static void	split_loop(const char *s, char c, char **strarr)
 			k++;
 		}
 	}
-	strarr[k] = '\0';
+	strarr[k] = NULL;
 }
 
 char	**ft_split(char const *s, char c)
