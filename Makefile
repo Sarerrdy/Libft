@@ -6,11 +6,11 @@ ARFLAGS := rcs
 RM      := rm -f
 
 SRC_CHAR := \
-	ft_islower.c ft_isupper.c ft_isalpha.c ft_isdigit.c \
+	ft_isalpha.c ft_isdigit.c \
 	ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c
 
 SRC_STRING := \
-	ft_strlen.c ft_int_len.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c \
+	ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c \
 	ft_strnstr.c ft_strchr.c ft_strrchr.c ft_strdup.c ft_substr.c \
 	ft_strjoin.c ft_strtrim.c ft_split.c
 
