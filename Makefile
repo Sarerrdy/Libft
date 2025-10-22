@@ -6,7 +6,7 @@ ARFLAGS := rcs
 RM      := rm -f
 
 SRC_CHAR := \
-	ft_isalpha.c ft_isdigit.c \
+	ft_isalpha.c ft_isdigit.c ft_isalnum.c\
 	ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c
 
 SRC_STRING := \
@@ -25,7 +25,7 @@ SRC_ITER := \
 	ft_strmapi.c ft_striteri.c
 
 SRC_FD := \
-	ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c
+	ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c
 
 SRCS := $(SRC_CHAR) $(SRC_STRING) $(SRC_MEMORY) $(SRC_CONVERT) $(SRC_ITER) $(SRC_FD)
 OBJS := $(SRCS:.c=.o)
